@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../Components/Button/PrimaryButton";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { useUser } from "../../contexts/userContext";
 
 const Navbar = () => {
-  const { user,logout } = useContext(AuthContext);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { user, logout, loading, setLoading } = useContext(AuthContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(null);
+  const [userInfo] = useUser(user?.email);
+  console.log(userInfo);
 
+  const role = userInfo?.role;
+  // const [dashboard, setDashboard] = useState("/dashboard");
+  // console.log(dashboard);
+  // if (role === "admin") {
+  //   setDashboard("/admin-dashboard");
+  // }
+  // else if (role === "seller") {
+  //   setDashboard("/seller-dashboard");
+  // } 
+  // else setDashboard("/dashboard");
+  // setLoading(false);
+  // console.log(role);
   return (
     <header className="text-gray-900 body-font shadow-sm">
       <div className=" mx-auto flex flex-wrap py-5 flex-col md:flex-row items-center">
         <Link to="/">
-          <img src="https://i.ibb.co/dptczxv/pre-owned.png" className="h-20" alt="" />
+          <img
+            src="https://i.ibb.co/dptczxv/pre-owned.png"
+            className="h-20"
+            alt=""
+          />
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           <div>
@@ -41,7 +60,7 @@ const Navbar = () => {
                   {isDropdownOpen && (
                     <div className="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl ">
                       <Link
-                        to="/Dashboard"
+                        to={`${role==='seller'?'/seller-dashboard':role==='admin'?'admin-dashboard':'/dashboard'}`}
                         className="flex items-center px-3 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform  hover:bg-gray-100 "
                       >
                         <svg
@@ -64,7 +83,13 @@ const Navbar = () => {
                       </Link>
 
                       <hr className="border-gray-200" />
-                      <div onClick={logout} className="flex items-center cursor-pointer p-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform  hover:bg-gray-100 ">
+                      <div
+                        onClick={() => {
+                          logout();
+                          setIsDropdownOpen(false);
+                        }}
+                        className="flex items-center cursor-pointer p-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform  hover:bg-gray-100 "
+                      >
                         <svg
                           className="w-5 h-5 mx-1"
                           viewBox="0 0 24 24"
@@ -92,7 +117,7 @@ const Navbar = () => {
                   Login
                 </Link>
                 <Link to="/signup" className="mr-5">
-                  <PrimaryButton classes="rounded-full px-4 py-2">
+                  <PrimaryButton classes="rounded px-4 py-2">
                     Signup
                   </PrimaryButton>
                 </Link>

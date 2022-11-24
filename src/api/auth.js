@@ -4,8 +4,8 @@ export const setAuthToken = (user) => {
     role: user.role,
   };
   //save user in database
-console.log(process.env.REACT_APP_SERVER);
-  fetch(`http://localhost:1357/user/${user?.email}`, {
+// console.log(process.env.REACT_APP_SERVER);
+  fetch(`${process.env.REACT_APP_SERVER}/user/${user?.email}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
