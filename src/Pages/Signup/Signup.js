@@ -1,12 +1,17 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { setAuthToken } from "../../api/auth";
 import PrimaryButton from "../../Components/Button/PrimaryButton";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
-  const { createUser, updateUserProfile, signInWithGoogle } =
+  const { createUser, updateUserProfile, signInWithGoogle,setLoading } =
     useContext(AuthContext);
+    const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -19,25 +24,47 @@ const Signup = () => {
         console.log(result.user);
         updateUserProfile(name)
           .then((result) => {
-            const user = result.user;
-            console.log(user);
+            toast.success("Log in successfully");
+            navigate(from, { replace: true });
           })
           .catch((error) => {
-            console.error(error);
+            toast.error(error.message);
+            setLoading(false);
           });
       })
       .catch((error) => {
-        console.error(error);
+        toast.error(error.message);
+        setLoading(false);
       });
+      //save user to DB
+  const newUser = {
+    name: name,
+    email: email,
+    role: role,
+    verified:false,
+  }
+    setAuthToken(newUser);
   };
   const manageGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          role: 'buyer',
+          verified:false,
+        }
+          setAuthToken(newUser);
+        toast.success("Log in successfully");
+        navigate(from, { replace: true });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        toast.error(error.message);
+        setLoading(false);
+      });
+    
   };
+
   return (
     <div className="flex justify-center items-center pt-8">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
@@ -86,7 +113,7 @@ const Signup = () => {
                     type="radio"
                     name="role"
                     className="radio mr-2"
-                    value="Buyer"
+                    value="buyer"
                   />
                   Buyer
                 </div>

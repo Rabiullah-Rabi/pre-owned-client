@@ -1,28 +1,46 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../Components/Button/PrimaryButton";
 import { AuthContext } from "../../contexts/AuthProvider";
-
+import toast from "react-hot-toast";
+import { setAuthToken } from "../../api/auth";
 const Login = () => {
-  const { signin, signInWithGoogle } = useContext(AuthContext);
+  const { signin, signInWithGoogle, loading, setLoading } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     signin(email, password)
-      .then(result => {
-      console.log(result.user);
+      .then((result) => {
+        setAuthToken(result.user);
+        toast.success("Log in successfully");
+        navigate(from, { replace: true });
       })
-    .catch(error=>console.error(error))
+      .catch((error) => console.error(error));
   };
   const manageGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          role: "buyer",
+          verified: false,
+        };
+        setAuthToken(newUser);
+        toast.success("Log in successfully");
+        navigate(from, { replace: true });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        toast.error(error.message);
+        setLoading(false);
+        console.error(error);
+      });
   };
   return (
     <div className="flex justify-center items-center pt-8">
