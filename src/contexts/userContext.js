@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useUser = (email = "fbrabiullah@gmail.com") => {
+export const useUser = (email) => {
   const [userInfo, setUserInfo] = useState(null);
   const [userLoading, setUserLoading] = useState(true);
 
@@ -20,5 +20,5 @@ export const useUser = (email = "fbrabiullah@gmail.com") => {
     }
   }, [email]);
     console.log(userInfo);
-  return [userInfo];
+  return [userInfo,userLoading];
 };

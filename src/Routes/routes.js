@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
+import SellerDashboard from "../Layout/SellerDashBoard/SellerDashboard";
 import UserDashboard from "../Layout/UserDashboard/UserDashboard";
 import Blog from "../Pages/Blog/Blog";
 import OrderedItems from "../Pages/dashboard/Buyer/OrderdItems/OrderedItems";
@@ -10,6 +11,10 @@ import Login from "../Pages/Login/Login";
 import ComingSoon from "../Pages/Shared/ComingSoon";
 import ErrorPage from "../Pages/Shared/ErrorPage";
 import Signup from "../Pages/Signup/Signup";
+import AdminRoutes from "./AdminRoutes";
+import BuyerRoutes from "./BuyerRoutes";
+import PrivateRoute from "./PrivateRoute";
+import SellerRoutes from "./sellerRoutes";
 
 const router = createBrowserRouter([
   {
@@ -37,19 +42,64 @@ const router = createBrowserRouter([
         path: "/coming-soon",
         element: <ComingSoon></ComingSoon>,
       },
+      // buyers dashboard
       {
         path: "/dashboard",
-        element: <UserDashboard></UserDashboard>,
+        element: (
+          <PrivateRoute>
+            <BuyerRoutes>
+              <UserDashboard></UserDashboard>
+            </BuyerRoutes>
+          </PrivateRoute>
+        ),
         children: [
           {
             path: "/dashboard",
-            element: <OrderedItems></OrderedItems>,
+            element: (
+              <BuyerRoutes>
+                <OrderedItems></OrderedItems>
+              </BuyerRoutes>
+            ),
           },
         ],
       },
+      // seller Dashboard
       {
         path: "/seller-dashboard",
-        element: <AddProduct></AddProduct>,
+        element: (
+          <PrivateRoute>
+            <SellerRoutes>
+              <SellerDashboard></SellerDashboard>
+            </SellerRoutes>
+          </PrivateRoute>
+        ),
+        children: [
+          {
+            path: "/seller-dashboard",
+            element: <AddProduct></AddProduct>,
+          },
+          {
+            path: "/seller-dashboard/manage-products",
+            element: <ComingSoon></ComingSoon>,
+          },
+        ],
+      },
+      // admin dashboard
+      {
+        path: "/admin-dashboard",
+        element: (
+          <PrivateRoute>
+            <AdminRoutes>
+              <ComingSoon></ComingSoon>
+            </AdminRoutes>
+          </PrivateRoute>
+        ),
+        children: [
+          {
+            path: "/admin-dashboard",
+            element: <ComingSoon></ComingSoon>,
+          },
+        ],
       },
     ],
   },
