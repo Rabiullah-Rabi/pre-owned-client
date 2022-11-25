@@ -12,7 +12,7 @@ const AdminRoutes = ({children}) => {
       return <Spinner></Spinner>;
     }
     if (user && userInfo?.role === "admin") {
-      console.log(userInfo?.role);
+      // console.log(userInfo?.role);
       return children;
     }
     return <Navigate to="/" state={{ from: location }} replace></Navigate>;

@@ -39,6 +39,8 @@ const AddProduct = () => {
     const seller_contact = form.sellerContact.value;
     const meeting_point = form.meetingPoint.value;
     const image = form.image.files[0];
+    const condition = form.condition.value;
+
     // imgbb
     const formData = new FormData();
     formData.append("image", image);
@@ -56,14 +58,16 @@ const AddProduct = () => {
           market_price,
           year_of_use,
           seller_contact,
-          seler_name: userInfo.name,
-          seler_email: userInfo.email,
+          seller_name: userInfo.name,
+          seller_email: userInfo.email,
           meeting_point,
           sold: false,
           wishlist: false,
           booked: false,
           reported: false,
+          advertisement: false,
           product_img: data.data.display_url,
+          condition,
         };
         const url = `${process.env.REACT_APP_SERVER}/products`;
         fetch(url, {
@@ -83,7 +87,10 @@ const AddProduct = () => {
             console.log(error);
           });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        toast.error(error.message);
+        console.log(error);
+      });
   };
   return (
     <div className="flex justify-center items-center">
@@ -124,6 +131,54 @@ const AddProduct = () => {
                   </option>
                 ))}
               </select>
+            </div>
+            <div>
+              Condition
+              <label
+                htmlFor="condition"
+                className="my-2 text-sm flex  flex-col"
+              >
+                <div className="flex items-center mb-2">
+                  <input
+                    type="radio"
+                    name="condition"
+                    className="radio mr-2"
+                    value="Excellent"
+                    defaultChecked
+                  />
+                  Excellent
+                </div>
+                <div className="flex items-center mb-2">
+                  <input
+                    type="radio"
+                    name="condition"
+                    className="radio mr-2"
+                    value="Good"
+                  />
+                  Good
+                </div>
+                <div className="flex items-center mb-2">
+                  <input
+                    type="radio"
+                    name="condition"
+                    className="radio mr-2"
+                    value="fair"
+                  />
+                  fair
+                </div>
+              </label>
+            </div>
+            <div>
+              <label htmlFor="purchaseYear" className="block mb-2 text-sm">
+                Year of Purchase
+              </label>
+              <input
+                type="text"
+                name="purchaseYear"
+                required
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                data-temp-mail-org="0"
+              />
             </div>
             <div>
               <label htmlFor="resellPrice" className="block mb-2 text-sm">
@@ -180,6 +235,17 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="meetingPoint"
+                required
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                data-temp-mail-org="0"
+              />
+            </div>
+            <div>
+              <label htmlFor="description" className="block mb-2 text-sm">
+                Description
+              </label>
+              <textarea
+                name="description"
                 required
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"

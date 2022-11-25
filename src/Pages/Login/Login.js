@@ -21,7 +21,10 @@ const Login = () => {
         toast.success("Log in successfully");
         navigate(from, { replace: true });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        toast.error(error.message);
+        console.error(error)
+      });
   };
   const manageGoogle = () => {
     signInWithGoogle()
