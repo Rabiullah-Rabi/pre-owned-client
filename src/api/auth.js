@@ -1,7 +1,9 @@
 export const setAuthToken = (user) => {
   const currentUser = {
+    name: user.name,
     email: user.email,
     role: user.role,
+    verified: user.verified,
   };
   //save user in database
 // console.log(process.env.REACT_APP_SERVER);

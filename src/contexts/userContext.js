@@ -19,6 +19,6 @@ export const useUser = (email) => {
         });
     }
   }, [email]);
-    console.log(userInfo);
+    // console.log(userInfo);
   return [userInfo,userLoading];
 };

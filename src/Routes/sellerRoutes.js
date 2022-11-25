@@ -11,7 +11,6 @@ const SellerRoutes = ({ children }) => {
     return <Spinner></Spinner>;
   }
     if (user && userInfo?.role === "seller") {
-      console.log(userInfo?.role);
     return children ;
   }
   return <Navigate to="/" state={{ from: location }} replace></Navigate>;

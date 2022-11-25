@@ -103,19 +103,19 @@ const Signup = () => {
                     type="radio"
                     name="role"
                     className="radio mr-2"
-                    value="seller"
+                    value="buyer"
                     defaultChecked
                   />
-                  Seller
+                  Buyer
                 </div>
                 <div className="flex items-center mb-2">
                   <input
                     type="radio"
                     name="role"
                     className="radio mr-2"
-                    value="buyer"
+                    value="seller"
                   />
-                  Buyer
+                  Seller
                 </div>
               </label>
             </div>

@@ -9,7 +9,7 @@ const Navbar = () => {
   const { user, logout, loading, setLoading } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [userInfo] = useUser(user?.email);
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const role = userInfo?.role;
   // const [dashboard, setDashboard] = useState("/dashboard");
