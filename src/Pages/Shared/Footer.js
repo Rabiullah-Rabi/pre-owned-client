@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer p-10 mt-3">
+      <footer className="footer py-10 mt-3">
         <div>
           <img src="https://i.ibb.co/dptczxv/pre-owned.png" className="h-20" alt="" />
         </div>

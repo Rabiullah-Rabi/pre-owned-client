@@ -1,11 +1,23 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const SideNav = () => {
-    return (
-        <div className='bg-gray-100 h-screen px-10 py-3'>
-            <h1>this is side nav</h1>
-        </div>
-    );
+  return (
+    <div className="w-60 py-10 flex flex-col">
+      <Link
+        to="./my-order"
+        className="py-3 pl-2 w-full text-md font-bold hover:text-primary border-b-2 border-primary"
+      >
+        My orders
+      </Link>
+      <Link
+        to="./my-wishlist"
+        className="py-3 pl-2 w-full text-md font-bold hover:text-primary border-b-2 border-primary"
+      >
+        My Wishlist
+      </Link>
+    </div>
+  );
 };
 
 export default SideNav;

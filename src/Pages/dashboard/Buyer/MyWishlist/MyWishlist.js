@@ -1,7 +1,7 @@
 import React from "react";
 import ComingSoon from "../../../Shared/ComingSoon";
 
-const OrderedItems = () => {
+const MyWishlist = () => {
   return (
     <div>
       <ComingSoon></ComingSoon>
@@ -9,4 +9,4 @@ const OrderedItems = () => {
   );
 };
 
-export default OrderedItems;
+export default MyWishlist;

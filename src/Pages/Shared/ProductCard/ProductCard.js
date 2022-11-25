@@ -1,8 +1,9 @@
 import React from "react";
-import { FaRegBookmark, FaMapMarkerAlt } from "react-icons/fa";
+import { FaBookmark, FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-  const { product_name, category, resell_Price, meeting_point, product_img } =
+  const { _id,product_name, category, resell_Price, meeting_point, product_img,condition} =
     product;
   return (
     <div className="p-5 hover:shadow-lg">
@@ -15,14 +16,15 @@ const ProductCard = ({ product }) => {
         <div>
           <h2 className="text-xl font-bold">{product_name}</h2>
           <h2 className="text-md ">Brand:{category}</h2>
+          <h2 className="text-md ">Condition:{condition}</h2>
         </div>
         <div className="tooltip" data-tip="Add to wishlist">
-          <FaRegBookmark />
+          <FaBookmark />
         </div>
       </div>
       <div>
         <h2 className="text-2xl font-bold font-primary">
-          Price : ${resell_Price} 
+          Price : ${resell_Price}
         </h2>
       </div>
       <div>
@@ -30,11 +32,18 @@ const ProductCard = ({ product }) => {
           <FaMapMarkerAlt></FaMapMarkerAlt>
           <p>{meeting_point}</p>
         </div>
-          </div>
-          <div className="flex justify-between mt-5">
-              <button className="btn btn-sm bg-primary outline-none border-0 ">Details</button>
-              <button className="btn btn-sm bg-primary outline-none border-0 ">Book Now</button>
-          </div>
+      </div>
+      <div className="flex justify-between mt-5">
+        <Link to={`/products/${_id}`}>
+          {" "}
+          <button className="btn btn-sm bg-primary outline-none border-0 ">
+            Details
+          </button>
+        </Link>
+        <button className="btn btn-sm bg-primary outline-none border-0 ">
+          Book Now
+        </button>
+      </div>
     </div>
   );
 };

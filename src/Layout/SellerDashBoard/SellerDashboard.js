@@ -7,7 +7,7 @@ const SellerDashboard = () => {
     <div>
       <div className="flex ">
         <SideNav></SideNav>
-        <div className="p-10">
+        <div className="p-10 flex-1">
           <Outlet></Outlet>
         </div>
       </div>

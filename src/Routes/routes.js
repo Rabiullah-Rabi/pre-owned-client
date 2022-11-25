@@ -9,10 +9,15 @@ import AllBuyers from "../Pages/dashboard/admin/AllBuyers/AllBuyers";
 import AllSellers from "../Pages/dashboard/admin/AllSellers/Allsellers";
 import AllProducts from "../Pages/dashboard/admin/Products/AllProducts/AllProducts";
 import ReportedProducts from "../Pages/dashboard/admin/Products/ReportedProduct/ReportedProducts";
+import MyWishlist from "../Pages/dashboard/Buyer/MyWishlist/MyWishlist";
 import OrderedItems from "../Pages/dashboard/Buyer/OrderdItems/OrderedItems";
 import AddProduct from "../Pages/dashboard/seller/AddProdust/AddProduct";
+import MyBuyers from "../Pages/dashboard/seller/MyBuyers/MyBuyers";
+import SellerProduct from "../Pages/dashboard/seller/SellerProduct/SellerProduct";
+import SoldItem from "../Pages/dashboard/seller/SoldItem/SoldItem";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import ComingSoon from "../Pages/Shared/ComingSoon";
 import ErrorPage from "../Pages/Shared/ErrorPage";
 import ProductsByCategory from "../Pages/Shared/ProductsBuCategory/ProductsByCategory";
@@ -51,6 +56,12 @@ const router = createBrowserRouter([
           fetch(`${process.env.REACT_APP_SERVER}/categories/${params.name}`),
       },
       {
+        path: "/products/:id",
+        element: <ProductDetails></ProductDetails>,
+        loader: ({ params }) =>
+          fetch(`${process.env.REACT_APP_SERVER}/products/${params.id}`),
+      },
+      {
         path: "/coming-soon",
         element: <ComingSoon></ComingSoon>,
       },
@@ -66,13 +77,13 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            path: "/dashboard",
-            element: (
-              <BuyerRoutes>
-                <OrderedItems></OrderedItems>
-              </BuyerRoutes>
-            ),
+            path: "/dashboard/my-order",
+            element: <OrderedItems></OrderedItems>
           },
+          {
+            path: "/dashboard/my-wishlist",
+            element: <MyWishlist></MyWishlist>
+          }
         ],
       },
       // seller Dashboard
@@ -92,7 +103,19 @@ const router = createBrowserRouter([
           },
           {
             path: "/seller-dashboard/manage-products",
-            element: <ComingSoon></ComingSoon>,
+            element: <SellerProduct></SellerProduct>,
+          },
+          {
+            path: "/seller-dashboard/sold-items",
+            element: <SoldItem></SoldItem>,
+          },
+          {
+            path: "/seller-dashboard/add-product",
+            element: <AddProduct></AddProduct>,
+          },
+          {
+            path: "/seller-dashboard/my-buyers",
+            element: <MyBuyers></MyBuyers>,
           },
         ],
       },

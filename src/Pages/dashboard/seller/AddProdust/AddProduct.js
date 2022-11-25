@@ -36,10 +36,13 @@ const AddProduct = () => {
     const resell_Price = form.resellPrice.value;
     const market_price = form.marketPrice.value;
     const year_of_use = form.yearOfUse.value;
+    const purchaseYear = form.purchaseYear.value;
     const seller_contact = form.sellerContact.value;
     const meeting_point = form.meetingPoint.value;
     const image = form.image.files[0];
     const condition = form.condition.value;
+    const description = form.description.value;
+
 
     // imgbb
     const formData = new FormData();
@@ -57,6 +60,7 @@ const AddProduct = () => {
           resell_Price,
           market_price,
           year_of_use,
+          purchaseYear,
           seller_contact,
           seller_name: userInfo.name,
           seller_email: userInfo.email,
@@ -68,6 +72,7 @@ const AddProduct = () => {
           advertisement: false,
           product_img: data.data.display_url,
           condition,
+          description
         };
         const url = `${process.env.REACT_APP_SERVER}/products`;
         fetch(url, {
