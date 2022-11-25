@@ -1,30 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Spinner from "../../../../Components/Spinner/Spinner";
+import React from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 
 const AllBuyers = () => {
-  //   const [buyers, setBuyers] = useState(null);
-  //   const [userLoading, setUserLoading] = useState(true);
-
-  //   const url = ` ${process.env.REACT_APP_SERVER}/buyers`;
-  //   useEffect(() => {
-  //     fetch(url)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setBuyers(data);
-  //         console.log(data);
-  //         setUserLoading(false);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   }, []);
-
-  //   if (userLoading) {
-  //     return <Spinner></Spinner>;
-  //   }
-  //Verify user
+  //Load buyers
   const { data: buyers = [], refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: async () => {
@@ -34,6 +13,7 @@ const AllBuyers = () => {
       return data;
     },
   });
+  //verify a buyer
   const verifyUser = (id) => {
     const url = ` ${process.env.REACT_APP_SERVER}/verify-users/${id}`;
     fetch(url, {
@@ -49,6 +29,19 @@ const AllBuyers = () => {
           toast.success("User Verified successfully");
           refetch();
         }
+      });
+  };
+  //Delete a buyer
+  const handleDelete = (id) => {
+    const url = ` ${process.env.REACT_APP_SERVER}/users/${id}`;
+    fetch(url, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success("Delete Buyer successfully");
+        refetch();
       });
   };
   return (
@@ -84,7 +77,12 @@ const AllBuyers = () => {
                   )}
                 </td>
                 <td>
-                  <button className="btn btn-sm bg-red-700">Delete User</button>
+                  <button
+                    className="btn btn-sm bg-red-700"
+                    onClick={() => handleDelete(buyer._id)}
+                  >
+                    Delete User
+                  </button>
                 </td>
               </tr>
             ))}

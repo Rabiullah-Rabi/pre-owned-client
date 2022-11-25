@@ -15,6 +15,7 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import ComingSoon from "../Pages/Shared/ComingSoon";
 import ErrorPage from "../Pages/Shared/ErrorPage";
+import ProductsByCategory from "../Pages/Shared/ProductsBuCategory/ProductsByCategory";
 import Signup from "../Pages/Signup/Signup";
 import AdminRoutes from "./AdminRoutes";
 import BuyerRoutes from "./BuyerRoutes";
@@ -42,6 +43,12 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "/category/:name",
+        element: <ProductsByCategory></ProductsByCategory>,
+        loader: ({ params }) =>
+          fetch(`${process.env.REACT_APP_SERVER}/categories/${params.name}`),
       },
       {
         path: "/coming-soon",
