@@ -8,7 +8,9 @@ export const useUser = (email) => {
   // const url = ` http://localhost:1357/users/fbrabiullah@gmail.com`;
   useEffect(() => {
     if (email) {
-      fetch(url)
+      fetch(url, {
+        authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+      })
         .then((res) => res.json())
         .then((data) => {
           setUserInfo(data);
@@ -19,6 +21,6 @@ export const useUser = (email) => {
         });
     }
   }, [email]);
-    // console.log(userInfo);
-  return [userInfo,userLoading];
+  // console.log(userInfo);
+  return [userInfo, userLoading];
 };

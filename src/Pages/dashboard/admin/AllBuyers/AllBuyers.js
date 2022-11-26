@@ -20,6 +20,7 @@ const AllBuyers = () => {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
       },
     })
       .then((res) => res.json())

@@ -43,8 +43,8 @@ const AuthProvider = ({ children }) => {
 
   // Logout
   const logout = () => {
-    setLoading(true);
     localStorage.removeItem("pre-owned-token");
+    setLoading(true);
     return signOut(auth);
   };
 

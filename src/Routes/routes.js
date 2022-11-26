@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         path: "/products/:id",
         element: <ProductDetails></ProductDetails>,
         loader: ({ params }) =>
-          fetch(`${process.env.REACT_APP_SERVER}/products/${params.id}`),
+          fetch(`${process.env.REACT_APP_SERVER}/product/${params.id}`),
       },
       {
         path: "/coming-soon",
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            path: "/dashboard/my-order",
+            path: "/dashboard",
             element: <OrderedItems></OrderedItems>
           },
           {

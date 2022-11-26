@@ -5,7 +5,7 @@ const SideNav = () => {
   return (
     <div className="w-60 py-10 flex flex-col">
       <Link
-        to="./my-order"
+        to="./"
         className="py-3 pl-2 w-full text-md font-bold hover:text-primary border-b-2 border-primary"
       >
         My orders

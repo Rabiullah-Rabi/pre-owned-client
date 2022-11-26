@@ -4,9 +4,9 @@ import ProductCard from "../../Shared/ProductCard/ProductCard";
 
 const ProductsSection = () => {
   const { data: products = [], refetch } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["all-products"],
     queryFn: async () => {
-      const url = ` ${process.env.REACT_APP_SERVER}/products`;
+      const url = ` ${process.env.REACT_APP_SERVER}/all-products`;
       const res = await fetch(url);
       const data = await res.json();
       return data;

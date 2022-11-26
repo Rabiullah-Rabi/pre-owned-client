@@ -44,19 +44,18 @@ const ProductCard = ({ product }) => {
       <div className="flex justify-between mt-5">
         <Link to={`/products/${_id}`}>
           {" "}
-          <button className="btn btn-sm bg-primary outline-none border-0 ">
+          <button className="btn btn-sm bg-primary outline-none border-0">
             Details
           </button>
         </Link>
-        <label
-          
+        {/* <label
           htmlFor="BookingModal"
           className="btn btn-sm bg-primary outline-none border-0 "
         >
           Book Now
-        </label>
+        </label> */}
       </div>
-        <BookingModal product={product}></BookingModal>
+      <BookingModal product={product}></BookingModal>
     </div>
   );
 };

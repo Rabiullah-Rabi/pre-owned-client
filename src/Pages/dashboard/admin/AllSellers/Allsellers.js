@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const AllSellers = () => {
   //Load sellers
-  const { data: sellers = [], refetch } = useQuery({
+  const { data: sellers= [], refetch } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
       const url = ` ${process.env.REACT_APP_SERVER}/sellers`;
@@ -20,6 +21,7 @@ const AllSellers = () => {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
       },
     })
       .then((res) => res.json())
@@ -35,6 +37,9 @@ const AllSellers = () => {
     const url = ` ${process.env.REACT_APP_SERVER}/users/${id}`;
     fetch(url, {
       method: "DELETE",
+      headers: {
+        authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

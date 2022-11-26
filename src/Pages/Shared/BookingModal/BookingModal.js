@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -5,14 +6,25 @@ import PrimaryButton from "../../../Components/Button/PrimaryButton";
 import Spinner from "../../../Components/Spinner/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
-
 const BookingModal = ({ product }) => {
-    const { user, loading, setLoading } = useContext(AuthContext);
-    const navigate = useNavigate();
-  if (loading) {
-    return <Spinner></Spinner>;
-  }
-  const { displayName, email } = user;
+  const { user, loading, setLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const products = [product];
+  // console.log(product);
+  //Load product
+  // const { data: product = [], refetch } = useQuery({
+  //   queryKey: ["product"],
+  //   queryFn: async () => {
+  //     const url = ` ${process.env.REACT_APP_SERVER}/product/${id}`;
+  //     console.log(url);
+  //     const res = await fetch(url);
+  //     const data = await res.json();
+  //     // console.log(data);
+  //     return data;
+  //   },
+  // });
+  // console.log(product);
+  // const product = {};
   const {
     product_name,
     _id,
@@ -23,6 +35,13 @@ const BookingModal = ({ product }) => {
     meeting_point,
     product_img,
   } = product;
+  if (loading) {
+    return <Spinner></Spinner>;
+  }
+  // if (!user) {
+  //   navigate("/login");
+  // }
+  // const { displayName, email } = user;
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -37,23 +56,26 @@ const BookingModal = ({ product }) => {
       seller_email: seler_email,
       meeting_point,
       product_img,
-      buyer_name: displayName,
-      buyer_email: email,
+      buyer_name: user?.displayName,
+      buyer_email: user?.email,
       buyer_phone: phone,
+      booked: true,
+      paid: false,
     };
     const url = `${process.env.REACT_APP_SERVER}/booked`;
     fetch(url, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
       },
       body: JSON.stringify(bookedProduct),
     })
       .then((res) => res.json())
       .then((data) => {
         toast.success("Product Added Successfully");
-          form.reset();
-          navigate('/dashboard/my-order')
+        form.reset();
+        navigate("/dashboard");
       })
       .catch((error) => {
         toast.error(error.message);

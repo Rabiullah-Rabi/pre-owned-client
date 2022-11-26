@@ -10,7 +10,6 @@ const CategorySection = () => {
       const url = ` ${process.env.REACT_APP_SERVER}/categories`;
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
       return data;
     },
   });

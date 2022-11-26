@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
-import { Link, useLoaderData } from "react-router-dom";
-import { FaBookmark, FaMapMarkerAlt } from "react-icons/fa";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
+import { FaBookmark, FaMapMarkerAlt, FaRegCheckCircle } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthProvider";
+import BookingModal from "../Shared/BookingModal/BookingModal";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductDetails = () => {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
   const product = useLoaderData();
   const {
     product_name,
@@ -20,8 +23,19 @@ const ProductDetails = () => {
     wishlist,
     description,
     condition,
+    seller_email
   } = product;
-  console.log(product);
+    //Load booked items
+    const { data: seller, refetch } = useQuery({
+      queryKey: ["seller"],
+      queryFn: async () => {
+        const url = ` ${process.env.REACT_APP_SERVER}/seller/${seller_email}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        console.log(data);
+        return data;
+      },
+    });
   return (
     <div className="py-10">
       <div className="flex gap-10">
@@ -61,9 +75,20 @@ const ProductDetails = () => {
             <p className="my-5">{description}</p>
           </div>
           <div className="flex justify-between mt-5">
-            <button className="btn btn-sm bg-primary outline-none border-0 ">
-              Book Now
-            </button>
+            {!user ? (
+              <Link to="/login" state={{ from: location }} replace>
+                <button className="btn btn-sm bg-primary outline-none border-0 ">
+                  Log in to book Now
+                </button>
+              </Link>
+            ) : (
+              <label
+                htmlFor="BookingModal"
+                className="btn btn-sm bg-primary outline-none border-0 "
+              >
+                Book Now
+              </label>
+            )}
             <p className="cursor-pointer text-red-500">Report to admin</p>
           </div>
           <div className="mt-10">
@@ -71,14 +96,19 @@ const ProductDetails = () => {
               <div>
                 You must{" "}
                 <span className="text-primary">
-                  <Link to="/login">Log in </Link>
+                  <Link to="/login" state={{ from: location }} replace>
+                    Log in{" "}
+                  </Link>
                 </span>{" "}
                 to contact seller
               </div>
             ) : (
               <div>
-                <h3 className="text-lg font-bold">
+                <h3 className="text-lg font-bold flex items-center">
                   Seller Name: {seller_name}
+                  <span className="ml-2">
+                      <FaRegCheckCircle className={seller.verified?'text-green-600':'text-red-700'}></FaRegCheckCircle>
+                  </span>
                 </h3>
                 <h3 className="text-md font-bold">
                   {" "}
@@ -87,6 +117,7 @@ const ProductDetails = () => {
               </div>
             )}
           </div>
+          <BookingModal product={product}></BookingModal>
         </div>
       </div>
     </div>

@@ -79,6 +79,7 @@ const AddProduct = () => {
           method: "POST",
           headers: {
             "content-type": "application/json",
+            authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
           },
           body: JSON.stringify(product),
         })
