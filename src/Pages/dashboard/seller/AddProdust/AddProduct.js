@@ -43,7 +43,6 @@ const AddProduct = () => {
     const condition = form.condition.value;
     const description = form.description.value;
 
-
     // imgbb
     const formData = new FormData();
     formData.append("image", image);
@@ -72,7 +71,8 @@ const AddProduct = () => {
           advertisement: false,
           product_img: data.data.display_url,
           condition,
-          description
+          description,
+          buyer: "",
         };
         const url = `${process.env.REACT_APP_SERVER}/products`;
         fetch(url, {

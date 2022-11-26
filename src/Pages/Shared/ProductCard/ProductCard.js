@@ -1,10 +1,18 @@
 import React from "react";
 import { FaBookmark, FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import BookingModal from "../BookingModal/BookingModal";
 
 const ProductCard = ({ product }) => {
-  const { _id,product_name, category, resell_Price, meeting_point, product_img,condition} =
-    product;
+  const {
+    _id,
+    product_name,
+    category,
+    resell_Price,
+    meeting_point,
+    product_img,
+    condition,
+  } = product;
   return (
     <div className="p-5 hover:shadow-lg">
       <img
@@ -40,10 +48,15 @@ const ProductCard = ({ product }) => {
             Details
           </button>
         </Link>
-        <button className="btn btn-sm bg-primary outline-none border-0 ">
+        <label
+          
+          htmlFor="BookingModal"
+          className="btn btn-sm bg-primary outline-none border-0 "
+        >
           Book Now
-        </button>
+        </label>
       </div>
+        <BookingModal product={product}></BookingModal>
     </div>
   );
 };
