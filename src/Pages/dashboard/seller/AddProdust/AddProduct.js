@@ -73,6 +73,7 @@ const AddProduct = () => {
           condition,
           description,
           buyer: "",
+          published_date: new Date(),
         };
         const url = `${process.env.REACT_APP_SERVER}/products`;
         fetch(url, {

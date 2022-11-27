@@ -1,9 +1,11 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import AdminDashboard from "../Layout/AdminDashboard/AdminDashboard";
+import AllCategories from "../Layout/AllCategories/AllCategories.js/AllCategories";
 import Main from "../Layout/Main";
 import SellerDashboard from "../Layout/SellerDashBoard/SellerDashboard";
 import UserDashboard from "../Layout/UserDashboard/UserDashboard";
+import AllProduct from "../Pages/AllProduct/AllProduct";
 import Blog from "../Pages/Blog/Blog";
 import AllBuyers from "../Pages/dashboard/admin/AllBuyers/AllBuyers";
 import AllSellers from "../Pages/dashboard/admin/AllSellers/Allsellers";
@@ -50,11 +52,24 @@ const router = createBrowserRouter([
         element: <Blog></Blog>,
       },
       {
-        path: "/category/:name",
-        element: <ProductsByCategory></ProductsByCategory>,
-        loader: ({ params }) =>
-          fetch(`${process.env.REACT_APP_SERVER}/categories/${params.name}`),
+        path: "/category",
+        element: <AllCategories></AllCategories>,
+        children: [
+          {
+            path: "/category",
+            element:<AllProduct></AllProduct>
+          },
+          {
+            path: "/category/:name",
+            element: <ProductsByCategory></ProductsByCategory>,
+            loader: ({ params } = "samsung") =>
+              fetch(
+                `${process.env.REACT_APP_SERVER}/categories/${params.name}`
+              ),
+          },
+        ],
       },
+
       {
         path: "/products/:id",
         element: <ProductDetails></ProductDetails>,
@@ -78,12 +93,12 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/dashboard",
-            element: <OrderedItems></OrderedItems>
+            element: <OrderedItems></OrderedItems>,
           },
           {
             path: "/dashboard/my-wishlist",
-            element: <MyWishlist></MyWishlist>
-          }
+            element: <MyWishlist></MyWishlist>,
+          },
         ],
       },
       // seller Dashboard

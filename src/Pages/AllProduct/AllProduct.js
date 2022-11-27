@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import ProductCard from "../../Shared/ProductCard/ProductCard";
+import ProductCard from "../Shared/ProductCard/ProductCard";
 
-const ProductsSection = () => {
+const AllProduct = () => {
   const { data: products = [], refetch } = useQuery({
     queryKey: ["all-products"],
     queryFn: async () => {
@@ -14,9 +14,9 @@ const ProductsSection = () => {
   });
   return (
     <div className="py-10">
-      <h1 className="text-4xl font-bold mb-10">Recently added products </h1>
+      <h1 className="text-4xl font-bold mb-10">All Products </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {products.slice(0,9).map((product) => (
+        {products.map((product) => (
           <ProductCard key={product._id} product={product}></ProductCard>
         ))}
       </div>
@@ -24,4 +24,4 @@ const ProductsSection = () => {
   );
 };
 
-export default ProductsSection;
+export default AllProduct;

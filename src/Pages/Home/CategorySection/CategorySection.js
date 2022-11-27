@@ -15,9 +15,12 @@ const CategorySection = () => {
   });
   return (
     <div className="py-10">
-      <h1 className="text-4xl font-bold mb-5">Browse items By category: </h1>
+      <div className="flex justify-between">
+        <h1 className="text-4xl font-bold mb-5">Browse items By category: </h1>
+        <Link to={"/category"} className='text-primary font-bold'>All categories</Link>
+      </div>
       <div className="flex flex-wrap justify-between mt-10">
-        {categories.map((category) => (
+        {categories.slice(0, 5).map((category) => (
           <Link
             key={category._id}
             className=""
