@@ -5,11 +5,15 @@ import axios from "axios";
 
 const AllSellers = () => {
   //Load sellers
-  const { data: sellers= [], refetch } = useQuery({
+  const { data: sellers = [], refetch } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
       const url = ` ${process.env.REACT_APP_SERVER}/sellers`;
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: {
+          authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+        },
+      });
       const data = await res.json();
       return data;
     },

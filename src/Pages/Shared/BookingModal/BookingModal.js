@@ -73,15 +73,19 @@ const BookingModal = ({ product }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Product Added Successfully");
-        form.reset();
-        navigate("/dashboard");
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Product Added Successfully");
+          form.reset();
+          navigate("/dashboard");
+        } else {
+          toast.error(data.message);
+        }
       })
       .catch((error) => {
         toast.error(error.message);
         console.log(error);
       });
-    console.log(bookedProduct);
   };
   return (
     <div>

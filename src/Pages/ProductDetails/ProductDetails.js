@@ -107,7 +107,7 @@ const ProductDetails = () => {
                 <h3 className="text-lg font-bold flex items-center">
                   Seller Name: {seller_name}
                   <span className="ml-2">
-                      <FaRegCheckCircle className={seller.verified?'text-green-600':'text-red-700'}></FaRegCheckCircle>
+                      <FaRegCheckCircle className={seller?.verified?'text-green-600':'text-red-700'}></FaRegCheckCircle>
                   </span>
                 </h3>
                 <h3 className="text-md font-bold">

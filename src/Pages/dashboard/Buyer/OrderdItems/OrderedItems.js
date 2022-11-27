@@ -13,7 +13,11 @@ const OrderedItems = () => {
     queryKey: ["booked"],
     queryFn: async () => {
       const url = ` ${process.env.REACT_APP_SERVER}/booked/${user?.email}`;
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: {
+          authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+        },
+      });
       const data = await res.json();
       // console.log(data);
       return data;

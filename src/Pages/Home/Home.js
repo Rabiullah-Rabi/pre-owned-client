@@ -7,8 +7,15 @@ const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      <CategorySection></CategorySection>
-      <ProductsSection></ProductsSection>
+      <div className="flex">
+        <div className="w-[15%]">
+          <h1>Advertisement</h1>
+        </div>
+        <div className="flex-1">
+          <CategorySection></CategorySection>
+          <ProductsSection></ProductsSection>
+        </div>
+      </div>
     </div>
   );
 };

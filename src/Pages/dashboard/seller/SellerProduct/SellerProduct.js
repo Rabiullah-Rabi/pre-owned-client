@@ -9,9 +9,12 @@ const SellerProduct = () => {
   const { data: myProducts = [], refetch } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-        const url = ` ${process.env.REACT_APP_SERVER}/products/${user?.email}`;
-        console.log(url);
-      const res = await fetch(url);
+      const url = ` ${process.env.REACT_APP_SERVER}/products/${user?.email}`;
+      const res = await fetch(url, {
+        headers: {
+          authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+        },
+      });
       const data = await res.json();
       // console.log(data);
       return data;
@@ -63,14 +66,13 @@ const SellerProduct = () => {
                 <td>{product.resell_Price}</td>
                 <td>
                   {!product.booked ? (
-                    <label
-                      htmlFor="PaymentModal"
-                      className=" "
-                    >
+                    <label htmlFor="PaymentModal" className=" ">
                       Live
                     </label>
                   ) : (
-                    <p className="text-red-500 cursor-pointer">Booked by someone</p>
+                    <p className="text-red-500 cursor-pointer">
+                      Booked by someone
+                    </p>
                   )}
                 </td>
                 <td>

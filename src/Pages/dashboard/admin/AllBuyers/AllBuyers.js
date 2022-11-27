@@ -8,7 +8,11 @@ const AllBuyers = () => {
     queryKey: ["buyers"],
     queryFn: async () => {
       const url = ` ${process.env.REACT_APP_SERVER}/buyers`;
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: {
+          authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+        },
+      });
       const data = await res.json();
       return data;
     },
@@ -32,15 +36,17 @@ const AllBuyers = () => {
         }
       });
   };
-  //Delete a buyer
+  //Delete a Buyer
   const handleDelete = (id) => {
     const url = ` ${process.env.REACT_APP_SERVER}/users/${id}`;
     fetch(url, {
       method: "DELETE",
+      headers: {
+        authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         toast.success("Delete Buyer successfully");
         refetch();
       });
