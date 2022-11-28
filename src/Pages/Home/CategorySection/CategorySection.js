@@ -15,21 +15,36 @@ const CategorySection = () => {
   });
   return (
     <div className="py-10">
-      <div className="flex justify-between">
-        <h1 className="text-4xl font-bold mb-5">Browse items By category: </h1>
-        <Link to={"/category"} className='text-primary font-bold'>All categories</Link>
+      <div className="flex md:justify-between">
+        <h1 className="text-xl md:text-4xl font-bold mb-5">
+          Browse items By category:{" "}
+        </h1>
+        <Link
+          to={"/category"}
+          className="text-primary font-bold md:block hidden"
+        >
+          All categories
+        </Link>
       </div>
-      <div className="flex flex-wrap justify-between mt-10">
+      <div className="flex md:flex-wrap lg:justify-between flex-col lg:flex-row mt-10">
         {categories.slice(0, 5).map((category) => (
           <Link
             key={category._id}
-            className=""
+            className="flex items-center py-5 flex-col"
             to={`category/${category.cat_name}`}
           >
             <img src={category.img} alt="" className="h-16" />
             <p className="text-center font-bold mt-5">{category.cat_name}</p>
           </Link>
         ))}
+      </div>
+      <div className=" mx-auto text-center mt-10 md:hidden">
+        <Link
+          to={"/category"}
+          className=" btn bg-primary text-white font-bold mx-auto text-center border-0"
+        >
+          All categories
+        </Link>
       </div>
     </div>
   );

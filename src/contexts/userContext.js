@@ -5,7 +5,6 @@ export const useUser = (email) => {
   const [userLoading, setUserLoading] = useState(true);
 
   const url = ` ${process.env.REACT_APP_SERVER}/users/${email}`;
-  // const url = ` http://localhost:1357/users/fbrabiullah@gmail.com`;
   useEffect(() => {
     if (email) {
       fetch(url, {

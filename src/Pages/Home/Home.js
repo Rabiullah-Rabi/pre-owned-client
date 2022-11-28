@@ -7,13 +7,13 @@ import Promotuons from "./Promotion/Promotuons";
 
 const Home = () => {
   return (
-    <div>
+    <div >
       <Banner></Banner>
-      <div className="flex">
-        <div className="w-[15%]">
+      <div className="md:flex ">
+        <div className="w-full lg:w-[15%]">
           <Promotuons></Promotuons>
         </div>
-        <div className="flex-1 pl-5">
+        <div className="lg:flex-1 w-full md:pl-5">
           <CategorySection></CategorySection>
           <ProductsSection></ProductsSection>
           <AboutSection></AboutSection>
