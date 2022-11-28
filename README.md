@@ -15,6 +15,8 @@ adminPassword: admin@1
 ### Seller-panel
 - Add Products 
 - Delete Product
+- Select product for advertisement
+
 ### Buyer-panel
 - Book Product 
 - Pay with stripe
