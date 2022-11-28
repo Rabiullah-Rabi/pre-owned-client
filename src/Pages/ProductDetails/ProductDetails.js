@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import { FaBookmark, FaMapMarkerAlt, FaRegCheckCircle } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthProvider";
 import BookingModal from "../Shared/BookingModal/BookingModal";
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const { user } = useContext(AuthContext);
@@ -23,20 +24,47 @@ const ProductDetails = () => {
     wishlist,
     description,
     condition,
-    seller_email
+    seller_email,
+    sold,
+    _id,
   } = product;
-  console.log(product);
-    //Load booked items
-    const { data: seller, refetch } = useQuery({
-      queryKey: ["seller"],
-      queryFn: async () => {
-        const url = ` ${process.env.REACT_APP_SERVER}/seller/${seller_email}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        console.log(data);
-        return data;
+  //Load Seller Info
+  const { data: seller, refetch } = useQuery({
+    queryKey: ["seller"],
+    queryFn: async () => {
+      const url = ` ${process.env.REACT_APP_SERVER}/seller/${seller_email}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  //handle report
+  const handleReport = (product) => {
+    const url = `${process.env.REACT_APP_SERVER}/reported`;
+    // console.log(product);
+    fetch(url, {
+      method: "put",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
       },
-    });
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Product reported Successfully");
+        } else {
+          toast.error(data.message);
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        console.log(error);
+      });
+  };
   return (
     <div className="py-10">
       <div className="flex gap-10">
@@ -73,25 +101,34 @@ const ProductDetails = () => {
           <div>
             <p className="my-2">Purchase Year{purchaseYear}</p>
             <p className="my-2">Used :{year_of_use} Year</p>
-            <p className="my-5">{description}</p>
+            <p className="my-5">Product Description : {description}</p>
           </div>
-          <div className="flex justify-between mt-5">
-            {!user ? (
-              <Link to="/login" state={{ from: location }} replace>
-                <button className="btn btn-sm bg-primary outline-none border-0 ">
-                  Log in to book Now
-                </button>
-              </Link>
-            ) : (
-              <label
-                htmlFor="BookingModal"
-                className="btn btn-sm bg-primary outline-none border-0 "
+          {sold ? (
+            <p className="text-3xl font-bold text-primary">Sold out</p>
+          ) : (
+            <div className="flex justify-between mt-5">
+              {!user ? (
+                <Link to="/login" state={{ from: location }} replace>
+                  <button className="btn btn-sm bg-primary outline-none border-0 ">
+                    Log in to book Now
+                  </button>
+                </Link>
+              ) : (
+                <label
+                  htmlFor="BookingModal"
+                  className="btn btn-sm bg-primary outline-none border-0 "
+                >
+                  Book Now
+                </label>
+              )}
+              <p
+                className="cursor-pointer text-red-500"
+                onClick={() => handleReport(product)}
               >
-                Book Now
-              </label>
-            )}
-            <p className="cursor-pointer text-red-500">Report to admin</p>
-          </div>
+                Report to admin
+              </p>
+            </div>
+          )}
           <div className="mt-10">
             {!user ? (
               <div>
@@ -108,7 +145,11 @@ const ProductDetails = () => {
                 <h3 className="text-lg font-bold flex items-center">
                   Seller Name: {seller_name}
                   <span className="ml-2">
-                      <FaRegCheckCircle className={seller?.verified?'text-green-600':'text-red-700'}></FaRegCheckCircle>
+                    <FaRegCheckCircle
+                      className={
+                        seller?.verified ? "text-green-600" : "text-red-700"
+                      }
+                    ></FaRegCheckCircle>
                   </span>
                 </h3>
                 <h3 className="text-md font-bold">

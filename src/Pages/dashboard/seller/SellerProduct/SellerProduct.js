@@ -101,15 +101,21 @@ const SellerProduct = () => {
                   )}
                 </td>
                 <td>
-                  {product.advertisement ? (
-                    "Promoted"
+                  {product.sold ? (
+                    "Already Sold Item"
                   ) : (
-                    <button
-                      className="btn btn-sm bg-primary border-0"
-                      onClick={() => handleAdvertisement(product._id)}
-                    >
-                      Turn on Advertisement
-                    </button>
+                    <>
+                      {product.advertisement ? (
+                        "Promoted"
+                      ) : (
+                        <button
+                          className="btn btn-sm bg-primary border-0"
+                          onClick={() => handleAdvertisement(product._id)}
+                        >
+                          Turn on Advertisement
+                        </button>
+                      )}
+                    </>
                   )}
                 </td>
                 <td>
