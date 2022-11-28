@@ -6,9 +6,9 @@ const AllCategories = () => {
     
   return (
     <div>
-      <div className="flex ">
+      <div className="flex lg:flex-row flex-col">
         <Sidenav></Sidenav>
-        <div className="p-10 flex-1">
+        <div className="p-3 lg:p-10 flex-1">
           <Outlet></Outlet>
         </div>
       </div>

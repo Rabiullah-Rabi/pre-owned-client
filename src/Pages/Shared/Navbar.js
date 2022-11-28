@@ -24,8 +24,8 @@ const Navbar = () => {
   // setLoading(false);
   // console.log(role);
   return (
-    <header className="text-gray-900 body-font shadow-sm">
-      <div className=" mx-auto flex flex-wrap py-5 md:flex-row items-center flex-row justify-between px-3">
+    <header className="text-gray-900 body-font shadow-sm py-5">
+      <div className=" mx-auto flex px-3 justify-between">
         <Link to="/">
           <img
             src="https://i.ibb.co/dptczxv/pre-owned.png"
@@ -35,7 +35,7 @@ const Navbar = () => {
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           <div>
-            <Link to="/blog" className="mr-5 font bold px-3 hover:text-primary">
+            <Link to="/blog" className="mr-3 font bold px-3 hover:text-primary">
               Blog
             </Link>
           </div>
@@ -115,11 +115,11 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="mr-5 font bold px-3 hover:text-primary"
+                  className="mr-2 font bold px-3 hover:text-primary"
                 >
                   Login
                 </Link>
-                <Link to="/signup" className="mr-5">
+                <Link to="/signup" className="mr-2">
                   <PrimaryButton classes="rounded px-4 py-2">
                     Signup
                   </PrimaryButton>
