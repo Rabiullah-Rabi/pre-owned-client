@@ -1,22 +1,47 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const AllProducts = () => {
-  const { data: allProducts = [], refetch } = useQuery({
-    queryKey: ["all-products-admin"],
-    queryFn: async () => {
-      const url = ` ${process.env.REACT_APP_SERVER}/all-products-admin`;
-      const res = await fetch(url, {
-        headers: {
-          authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
-        },
-      });
-      const data = await res.json();
-      // console.log(data);
-      return data;
-    },
-  });
+  // const { data: allProducts = [], refetch } = useQuery({
+  //   queryKey: ["all-products-admin"],
+  //   queryFn: async () => {
+  //     const url = ` ${process.env.REACT_APP_SERVER}/all-products-admin`;
+  //     const res = await fetch(url, {
+  //       headers: {
+  //         authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+  //       },
+  //     });
+  //     const data = await res.json();
+  //     // console.log(data);
+  //     return data;
+  //   },
+  // });
+
+  const [allProducts, setAllProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const url = `${process.env.REACT_APP_SERVER}/all-products-admin`;
+
+      try {
+        const { data: response } = await axios.get(url, {
+          headers: {
+            authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
+          },
+        });
+        setAllProducts(response);
+      } catch (error) {
+        console.error(error.message);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
   //Delete a product
   const handleDelete = (id) => {
     const url = ` ${process.env.REACT_APP_SERVER}/products/${id}`;
@@ -30,7 +55,6 @@ const AllProducts = () => {
       .then((data) => {
         console.log(data);
         toast.success("product deleted successfully");
-        refetch();
       });
   };
   return (

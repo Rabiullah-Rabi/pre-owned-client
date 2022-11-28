@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const ReportedProducts = () => {
-  const [reportedItems, setReportedItems] = useState([]);
-  useEffect(() => {
-    const url = `${process.env.REACT_APP_SERVER}/reported`;
-    console.log(url);
-    axios
-      .get(url, {
+
+  const { data: reportedItems = [], refetch } = useQuery({
+    queryKey: ["reported"],
+    queryFn: async () => {
+      const url = ` ${process.env.REACT_APP_SERVER}/reported`;
+      const res = await fetch(url, {
         headers: {
           authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
         },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setReportedItems(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, [reportedItems]);
+      });
+      const data = await res.json();
+      // console.log(data);
+      return data;
+    },
+  });
   //Delete a product
   const handleDelete = (id) => {
     const url = ` ${process.env.REACT_APP_SERVER}/products/${id}`;
