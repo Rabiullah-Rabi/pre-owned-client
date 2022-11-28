@@ -63,6 +63,7 @@ const AddProduct = () => {
           seller_contact,
           seller_name: userInfo.name,
           seller_email: userInfo.email,
+          seller_id: userInfo._id,
           meeting_point,
           sold: false,
           wishlist: false,

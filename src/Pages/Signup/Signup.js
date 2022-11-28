@@ -7,9 +7,9 @@ import PrimaryButton from "../../Components/Button/PrimaryButton";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
-  const { createUser, updateUserProfile, signInWithGoogle,setLoading } =
+  const { createUser, updateUserProfile, signInWithGoogle, setLoading } =
     useContext(AuthContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const handleSubmit = (event) => {
@@ -25,6 +25,7 @@ const Signup = () => {
         updateUserProfile(name)
           .then((result) => {
             toast.success("Log in successfully");
+            setLoading(false);
             navigate(from, { replace: true });
           })
           .catch((error) => {
@@ -36,13 +37,13 @@ const Signup = () => {
         toast.error(error.message);
         setLoading(false);
       });
-      //save user to DB
-  const newUser = {
-    name: name,
-    email: email,
-    role: role,
-    verified:false,
-  }
+    //save user to DB
+    const newUser = {
+      name: name,
+      email: email,
+      role: role,
+      verified: false,
+    };
     setAuthToken(newUser);
   };
   const manageGoogle = () => {
@@ -51,10 +52,10 @@ const Signup = () => {
         const newUser = {
           name: result.user.displayName,
           email: result.user.email,
-          role: 'buyer',
-          verified:false,
-        }
-          setAuthToken(newUser);
+          role: "buyer",
+          verified: false,
+        };
+        setAuthToken(newUser);
         toast.success("Log in successfully");
         navigate(from, { replace: true });
       })
@@ -62,7 +63,6 @@ const Signup = () => {
         toast.error(error.message);
         setLoading(false);
       });
-    
   };
 
   return (

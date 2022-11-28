@@ -13,6 +13,7 @@ import AllProducts from "../Pages/dashboard/admin/Products/AllProducts/AllProduc
 import ReportedProducts from "../Pages/dashboard/admin/Products/ReportedProduct/ReportedProducts";
 import MyWishlist from "../Pages/dashboard/Buyer/MyWishlist/MyWishlist";
 import OrderedItems from "../Pages/dashboard/Buyer/OrderdItems/OrderedItems";
+import Payment from "../Pages/dashboard/Buyer/Payment/Payment";
 import AddProduct from "../Pages/dashboard/seller/AddProdust/AddProduct";
 import MyBuyers from "../Pages/dashboard/seller/MyBuyers/MyBuyers";
 import SellerProduct from "../Pages/dashboard/seller/SellerProduct/SellerProduct";
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/category",
-            element:<AllProduct></AllProduct>
+            element: <AllProduct></AllProduct>,
           },
           {
             path: "/category/:name",
@@ -98,6 +99,12 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/my-wishlist",
             element: <MyWishlist></MyWishlist>,
+          },
+          {
+            path: "/dashboard/payments/:id",
+            element: <Payment></Payment>,
+            loader: ({ params }) =>
+              fetch(`${process.env.REACT_APP_SERVER}/booked-item/${params.id}`),
           },
         ],
       },

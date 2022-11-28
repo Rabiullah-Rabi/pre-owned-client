@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../contexts/AuthProvider";
 import { useUser } from "../../../../contexts/userContext";
 import PaymentModal from "../../../Shared/PaymentModal/PaymentModal";
@@ -34,7 +35,7 @@ const OrderedItems = () => {
       method: "DELETE",
       headers: {
         authorization: `bearar ${localStorage.getItem("pre-owned_token")}`,
-      }
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -73,14 +74,17 @@ const OrderedItems = () => {
                 <td>{item.resell_Price}</td>
                 <td>
                   {!item.paid ? (
-                    <label
-                      htmlFor="PaymentModal"
-                      className="btn btn-sm bg-primary outline-none border-0 "
-                    >
-                      Pay now
-                    </label>
+                    <Link to={`./payments/${item._id}`} className="btn btn-sm bg-primary outline-none border-0 ">
+                      Pay Now
+                    </Link>
                   ) : (
-                    <p className="text-red-500 cursor-pointer">paid</p>
+                    // <label
+                    //   htmlFor="PaymentModal"
+                    //   className="btn btn-sm bg-primary outline-none border-0 "
+                    // >
+                    //   Pay now
+                    // </label>
+                    <p className="text-green-500 font-bold text-xl">Paid</p>
                   )}
                 </td>
                 <td>
@@ -91,7 +95,6 @@ const OrderedItems = () => {
                     Delete Item
                   </button>
                 </td>
-                {/* <PaymentModal product={item} key={item._id}></PaymentModal> */}
               </tr>
             ))}
           </tbody>

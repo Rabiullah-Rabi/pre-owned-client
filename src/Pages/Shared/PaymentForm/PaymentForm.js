@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import PrimaryButton from "../../../Components/Button/PrimaryButton";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const PaymentForm = ({ product }) => {
   const stripe = useStripe();
@@ -10,12 +11,18 @@ const PaymentForm = ({ product }) => {
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-  const { product_id, resell_Price, seller_email, buyer_email, buyer_name } =
-    product;
-
+  const {
+    product_id,
+    resell_Price,
+    seller_email,
+    buyer_email,
+    buyer_name,
+    seller_id,
+  } = product;
+  const navigate = useNavigate();
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-      const url = `${process.env.REACT_APP_SERVER}/create-payment-intent`;
+    const url = `${process.env.REACT_APP_SERVER}/create-payment-intent`;
     fetch(url, {
       method: "POST",
       headers: {
@@ -25,14 +32,16 @@ const PaymentForm = ({ product }) => {
       body: JSON.stringify({ resell_Price }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) => {
+        setClientSecret(data.clientSecret);
+      });
   }, [resell_Price]);
-console.log(resell_Price);
   //handle submit
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!stripe || elements) {
-      return;
+      // return;
     }
     const card = elements.getElement(CardElement);
     if (card === null) {
@@ -70,7 +79,9 @@ console.log(resell_Price);
         product_id,
         resell_Price,
         seller_email,
+        seller_id,
         buyer_email,
+        paid: false,
       };
       const url = `${process.env.REACT_APP_SERVER}/payments`;
       fetch(url, {
@@ -90,12 +101,13 @@ console.log(resell_Price);
             setTransactionId(paymentIntent.id);
           }
         });
-    }
-    setProcessing(false);
+      }
+      setProcessing(false);
+      navigate("/dashboard");
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="p-10 w-80">
         <CardElement
           options={{
             style: {
@@ -112,13 +124,13 @@ console.log(resell_Price);
             },
           }}
         />
-        <PrimaryButton
+        <button
           type="submit"
           disabled={!stripe || !clientSecret || processing}
-          className="btn btn-small mt-5"
+          className="btn bg-primary btn-small mt-5"
         >
           Pay
-        </PrimaryButton>
+        </button>
       </form>
       <p className="mt-5 text-red-500">{cardError}</p>
       {success && (

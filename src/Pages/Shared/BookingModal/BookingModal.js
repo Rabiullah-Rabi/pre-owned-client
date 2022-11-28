@@ -9,7 +9,6 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 const BookingModal = ({ product }) => {
   const { user, loading, setLoading } = useContext(AuthContext);
   const navigate = useNavigate();
-  const products = [product];
   // console.log(product);
   //Load product
   // const { data: product = [], refetch } = useQuery({
@@ -30,8 +29,9 @@ const BookingModal = ({ product }) => {
     _id,
     resell_Price,
     seller_contact,
-    seler_name,
-    seler_email,
+    seller_name,
+    seller_email,
+    seller_id,
     meeting_point,
     product_img,
   } = product;
@@ -52,8 +52,9 @@ const BookingModal = ({ product }) => {
       product_id: _id,
       resell_Price,
       seller_contact,
-      seller_name: seler_name,
-      seller_email: seler_email,
+      seller_name: seller_name,
+      seller_email: seller_email,
+      seller_id,
       meeting_point,
       product_img,
       buyer_name: user?.displayName,

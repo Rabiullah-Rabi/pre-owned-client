@@ -92,7 +92,7 @@ const SellerProduct = () => {
                   )}
                 </td>
                 <td>
-                  {!product.sold ? (
+                  {product.sold ? (
                     <label htmlFor="PaymentModal" className="text-green">
                       Sold
                     </label>

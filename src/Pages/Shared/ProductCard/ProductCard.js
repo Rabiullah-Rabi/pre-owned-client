@@ -50,12 +50,14 @@ const ProductCard = ({ product }) => {
         </Link>
         {/* <label
           htmlFor="BookingModal"
+          product={product}
           className="btn btn-sm bg-primary outline-none border-0 "
         >
           Book Now
         </label> */}
       </div>
-      <BookingModal product={product}></BookingModal>
+        {/* <BookingModal product={product}></BookingModal> */}
+
     </div>
   );
 };

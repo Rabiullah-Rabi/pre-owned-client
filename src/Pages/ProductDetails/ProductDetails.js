@@ -25,6 +25,7 @@ const ProductDetails = () => {
     condition,
     seller_email
   } = product;
+  console.log(product);
     //Load booked items
     const { data: seller, refetch } = useQuery({
       queryKey: ["seller"],
