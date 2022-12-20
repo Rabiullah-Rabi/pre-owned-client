@@ -25,7 +25,7 @@ const Navbar = () => {
   // console.log(role);
   return (
     <header className="text-gray-900 body-font shadow-sm py-5">
-      <div className=" mx-auto flex px-3 justify-between">
+      <div className=" mx-auto flex px-3 justify-between container">
         <Link to="/">
           <img
             src="https://i.ibb.co/dptczxv/pre-owned.png"

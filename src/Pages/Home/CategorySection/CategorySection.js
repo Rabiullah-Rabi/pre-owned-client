@@ -14,7 +14,7 @@ const CategorySection = () => {
     },
   });
   return (
-    <div className="py-10">
+    <div className="container py-20">
       <div className="flex md:justify-between">
         <h1 className="text-xl md:text-4xl font-bold mb-5">
           Browse items By category:{" "}

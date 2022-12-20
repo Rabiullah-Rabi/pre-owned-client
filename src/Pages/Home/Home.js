@@ -4,19 +4,21 @@ import Banner from "./Banner/Banner";
 import CategorySection from "./CategorySection/CategorySection";
 import ProductsSection from "./ProductsSection/ProductsSection";
 import Promotuons from "./Promotion/Promotuons";
+import TestimonialSection from "./TesimonialSection/TestimonialSection";
 
 const Home = () => {
   return (
-    <div >
+    <div className="">
       <Banner></Banner>
-      <div className="md:flex ">
-        <div className="w-full lg:w-[15%]">
+      <div className="lg:flex px-3 lg:justify-center container mx-auto">
+        <div className="w-full lg:w-1/5">
           <Promotuons></Promotuons>
         </div>
-        <div className="lg:flex-1 w-full md:pl-5">
+        <div className="lg:w-3/4  w-full md:pl-5">
           <CategorySection></CategorySection>
           <ProductsSection></ProductsSection>
           <AboutSection></AboutSection>
+          <TestimonialSection></TestimonialSection>
         </div>
       </div>
     </div>

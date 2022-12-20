@@ -1,0 +1,16 @@
+@import "react-alice-carousel/lib/alice-carousel.css";
+.alice-carousel__dots-item:not(.__custom):hover,
+.alice-carousel__dots-item:not(.__custom).__active {
+  background-color: #e14d2a;
+}
+.alice-carousel__dots-item:not(.__custom) {
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #ffe6d2;
+}
+.alice-carousel__prev-btn {
+  text-align: right;
+  display: none;
+}
