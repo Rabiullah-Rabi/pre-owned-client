@@ -36,7 +36,7 @@ const ReportedProducts = () => {
   };
   return (
     <div className="min-h-[800px]">
-      <h1>Reported Items </h1>
+      <h1 className= "text-xl mb-10 font-bold">Reported Items </h1>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>

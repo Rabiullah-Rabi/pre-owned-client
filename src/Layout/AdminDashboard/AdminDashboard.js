@@ -4,8 +4,8 @@ import AdminSideNav from "./AdminSideNav";
 
 const AdminDashboard = () => {
   return (
-    <div>
-      <div className="flex lg:flex-row flex-col">
+    <div className="relative">
+      <div className="flex lg:flex-row flex-col container mx-auto items-start">
         <AdminSideNav></AdminSideNav>
         <div className="p-3 lg:p-10 flex-1">
           <Outlet></Outlet>

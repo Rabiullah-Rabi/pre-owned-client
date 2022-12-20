@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Link } from "react-router-dom";
 import BookingModal from "../../Shared/BookingModal/BookingModal";
 import ProductCard from "../../Shared/ProductCard/ProductCard";
 
@@ -15,7 +16,17 @@ const ProductsSection = () => {
   });
   return (
     <div className="py-10">
-      <h1 className="text-4xl font-bold mb-10">Recently added products </h1>
+      <div className="flex md:justify-between">
+        <h1 className="text-xl md:text-4xl font-bold mb-5">
+          Browse items By category:{" "}
+        </h1>
+        <Link
+          to={"/category"}
+          className="text-primary font-bold md:block hidden"
+        >
+          All Products
+        </Link>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
         {products.slice(0, 9).map((product) => (
           <ProductCard key={product._id} product={product}></ProductCard>

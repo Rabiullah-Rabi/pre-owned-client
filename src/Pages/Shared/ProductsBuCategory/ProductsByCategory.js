@@ -8,7 +8,7 @@ const ProductsByCategory = () => {
   return (
     <div className="py-10">
       {
-        products.length===0? <div><h1>No Product Found</h1></div>:  <><h1 className="text-4xl font-bold mb-10">Products from : {products[0]?.category} </h1>
+        products.length===0? <div><h1 className= "text-xl mb-10 font-bold">No Product Found</h1></div>:  <><h1 className="text-4xl font-bold mb-10">Products from : {products[0]?.category} </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <ProductCard key={product._id} product={product}></ProductCard>

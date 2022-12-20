@@ -66,7 +66,7 @@ const ProductDetails = () => {
       });
   };
   return (
-    <div className="py-10">
+    <div className="py-10 container mx-auto" >
       <div className="flex gap-10">
         <img src={product_img} alt="" className="w-[40%]" />
         <div className="flex-1">

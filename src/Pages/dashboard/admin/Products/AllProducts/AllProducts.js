@@ -59,9 +59,9 @@ const AllProducts = () => {
   };
   return (
     <div className="min-h-[800px]">
-      <h1>All Products</h1>
+      <h1 className= "text-xl mb-10 font-bold">All Products</h1>
       <div className="overflow-x-auto">
-        <table className="table w-full">
+        <table className="table w-full table-auto">
           <thead>
             <tr>
               <th></th>

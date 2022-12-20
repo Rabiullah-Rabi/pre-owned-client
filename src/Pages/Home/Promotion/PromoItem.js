@@ -1,9 +1,8 @@
 import React from "react";
 import { FaBookmark, FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import BookingModal from "../BookingModal/BookingModal";
 
-const ProductCard = ({ product }) => {
+const PromoItem = ({ product }) => {
   const {
     _id,
     product_name,
@@ -15,19 +14,22 @@ const ProductCard = ({ product }) => {
   } = product;
   return (
     <div className="p-5 hover:shadow-lg">
-      <img
-        src={product_img}
-        className="w-full h-60 object-cover rounded-lg"
-        alt=""
-      />
+      <div className="relative">
+        <p className="absolute top-2 right-2 bg-white text-primary px-3 font-bold rounded">
+          Promoted
+        </p>
+        <img
+          src={product_img}
+          className="w-full h-40 object-cover rounded-lg"
+          alt=""
+        />
+      </div>
+
       <div className="mt-4 flex justify-between">
         <div>
-          <h2 className="text-xl font-bold">{product_name}</h2>
-          <h2 className="text-md ">Brand:{category}</h2>
-          <h2 className="text-md ">Condition:{condition}</h2>
-        </div>
-        <div className="tooltip" data-tip="Add to wishlist">
-          <FaBookmark />
+          <h2 className="text-lg font-bold">{product_name}</h2>
+          <h2 className="text-sm ">Brand:{category}</h2>
+          <h2 className="text-sm ">Condition:{condition}</h2>
         </div>
       </div>
       <div>
@@ -49,17 +51,16 @@ const ProductCard = ({ product }) => {
           </button>
         </Link>
         {/* <label
-          htmlFor="BookingModal"
-          product={product}
-          className="btn btn-sm bg-primary outline-none border-0 "
-        >
-          Book Now
-        </label> */}
+            htmlFor="BookingModal"
+            product={product}
+            className="btn btn-sm bg-primary outline-none border-0 "
+          >
+            Book Now
+          </label> */}
       </div>
-        {/* <BookingModal product={product}></BookingModal> */}
-
+      {/* <BookingModal product={product}></BookingModal> */}
     </div>
   );
 };
 
-export default ProductCard;
+export default PromoItem;
