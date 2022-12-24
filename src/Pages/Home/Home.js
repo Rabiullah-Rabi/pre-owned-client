@@ -2,6 +2,7 @@ import React from "react";
 import AboutSection from "./AboutSection/AboutSection";
 import Banner from "./Banner/Banner";
 import CategorySection from "./CategorySection/CategorySection";
+import CounterSection from "./CounterSection/CounterSection";
 import Location from "./Location/Location";
 import ProductsSection from "./ProductsSection/ProductsSection";
 import Promotuons from "./Promotion/Promotuons";
@@ -19,11 +20,14 @@ const Home = () => {
         <div className="lg:w-3/4  w-full md:pl-5">
           <Location></Location>
           <CategorySection></CategorySection>
-          <ProductsSection></ProductsSection>
-          <AboutSection></AboutSection>
-          <TestimonialSection></TestimonialSection>
-          <Requested></Requested>
         </div>
+      </div>
+      <div className="container mx-auto">
+        <ProductsSection></ProductsSection>
+        <AboutSection></AboutSection>
+        <CounterSection></CounterSection>
+        <TestimonialSection></TestimonialSection>
+        <Requested></Requested>
       </div>
     </div>
   );
