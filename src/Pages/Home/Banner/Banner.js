@@ -2,10 +2,10 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <div className="w-full bg-primary text-center p-5 text-white">
-      <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mt-5">Buy your phone at the best Price</h1>
+    <div className="w-full bg-primary text-center p-5 text-white ">
+      <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mt-5 animate__animated animate__fadeIn">Buy your phone at the best Price</h1>
 
-      <div className="flex justify-center my-10" >
+      <div className="flex justify-center my-10 animate__animated animate__fadeIn" >
         <div className=" xl:w-1/2 ">
           <div className="input-group relative flex items-stretch w-full rounded">
             <input

@@ -16,12 +16,18 @@ const CategorySection = () => {
   return (
     <div className="container py-20">
       <div className="flex md:justify-between">
-        <h1 className="text-xl md:text-4xl font-bold mb-5">
+        <h1
+          className="text-xl md:text-4xl font-bold mb-5"
+          data-aos="fade-right"
+          data-aos-duration="500"
+        >
           Browse items By category:{" "}
         </h1>
         <Link
           to={"/category"}
           className="text-primary font-bold md:block hidden"
+          data-aos="fade-left"
+          data-aos-duration="500"
         >
           All categories
         </Link>
@@ -32,6 +38,8 @@ const CategorySection = () => {
             key={category._id}
             className="flex items-center py-5 flex-col"
             to={`category/${category.cat_name}`}
+            data-aos="zoom-in"
+            data-aos-duration="500"
           >
             <img src={category.img} alt="" className="h-16" />
             <p className="text-center font-bold mt-5">{category.cat_name}</p>

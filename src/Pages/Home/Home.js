@@ -17,7 +17,7 @@ const Home = () => {
         <div className="w-full lg:w-1/5">
           <Promotuons></Promotuons>
         </div>
-        <div className="lg:w-3/4  w-full md:pl-5">
+        <div className="lg:w-3/4  w-full md:pl-5 flex flex-col justify-center">
           <Location></Location>
           <CategorySection></CategorySection>
         </div>

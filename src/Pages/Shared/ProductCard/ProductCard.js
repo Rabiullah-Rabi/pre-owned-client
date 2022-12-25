@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaBookmark, FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import BookingModal from "../BookingModal/BookingModal";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ProductCard = ({ product }) => {
   const {
@@ -13,8 +15,13 @@ const ProductCard = ({ product }) => {
     product_img,
     condition,
   } = product;
+
   return (
-    <div className="p-5 hover:shadow-lg">
+    <div
+      className="p-5 hover:shadow-lg  border rounded-lg"
+      data-aos="zoom-in"
+      data-aos-duration="500"
+    >
       <img
         src={product_img}
         className="w-full h-60 object-cover rounded-lg"
@@ -56,8 +63,7 @@ const ProductCard = ({ product }) => {
           Book Now
         </label> */}
       </div>
-        {/* <BookingModal product={product}></BookingModal> */}
-
+      {/* <BookingModal product={product}></BookingModal> */}
     </div>
   );
 };

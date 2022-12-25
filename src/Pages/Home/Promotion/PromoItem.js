@@ -13,7 +13,11 @@ const PromoItem = ({ product }) => {
     condition,
   } = product;
   return (
-    <div className="p-5 hover:shadow-lg">
+    <div
+      className="p-5 hover:shadow-lg border rounded-lg mt-7"
+      data-aos="fade-up"
+      data-aos-duration="500"
+    >
       <div className="relative">
         <p className="absolute top-2 right-2 bg-white text-primary px-3 font-bold rounded">
           Promoted

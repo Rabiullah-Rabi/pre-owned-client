@@ -2,7 +2,7 @@ import React from "react";
 import ImageMapper from "react-image-mapper";
 
 const Location = () => {
-  URL = "https://i.ibb.co/kmnv9YH/bangladesh-divisions-map.jpg";
+  const Url = "https://i.ibb.co/kmnv9YH/bangladesh-divisions-map.jpg";
   const MAP = {
     name: "my-map",
     areas: [
@@ -143,15 +143,15 @@ const Location = () => {
     ],
   };
   return (
-    <div>
-      <div className="flex md:justify-between py-10">
-        <h1 className="text-xl md:text-4xl font-bold mb-5">
-          Browse items By Location:{" "}
+    <div data-aos="fade-up" data-aos-duration="500">
+      <div className="flex md:justify-between py-10 ">
+        <h1 className="text-xl md:text-4xl font-bold mb-5 text-center">
+          Browse items By Location{" "}
         </h1>
       </div>
       <div className="flex justify-center">
         <ImageMapper
-          src={URL}
+          src={Url}
           map={MAP}
           width={434}
           // onLoad={() => this.load()}
